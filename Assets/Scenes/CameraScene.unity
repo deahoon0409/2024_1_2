@@ -123,6 +123,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &166282631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 166282634}
+  - component: {fileID: 166282633}
+  - component: {fileID: 166282632}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &166282632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166282631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d962630a2e51df46b8ce402dbc11864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 10
+  height: 10
+  cellSize: 1
+  cellPrefab: {fileID: 2837744225032320444, guid: 726c763af04ca3640acb3f795cea3a54,
+    type: 3}
+  bulidingPrefabs: {fileID: 0}
+  playerController: {fileID: 555380650}
+  maxBulidDistance: 5
+  grid: {fileID: 166282633}
+--- !u!156049354 &166282633
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166282631}
+  m_Enabled: 1
+  m_CellSize: {x: 1, y: 1, z: 1}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 0
+--- !u!4 &166282634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166282631}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &330585544
 AudioListener:
   m_ObjectHideFlags: 0
@@ -411,8 +477,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6485a55eae15e479c437749a05ab1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movoSpeed: 5
+  moveSpeed: 5
   jumpForce: 5
+  rotationSpeed: 10
   firstPersonCamera: {fileID: 330585545}
   thirdPersonCamera: {fileID: 1982132406}
   radius: 5
@@ -421,6 +488,7 @@ MonoBehaviour:
   yMinLimit: 30
   yMaxLimit: 90
   mouseSenesitivity: 2
+  isFirstPerson: 1
 --- !u!54 &555380651
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -606,7 +674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1085460429
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -817,7 +885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1982132403
 Transform:
   m_ObjectHideFlags: 0
@@ -944,3 +1012,4 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 1085460432}
   - {fileID: 555380655}
+  - {fileID: 166282634}
