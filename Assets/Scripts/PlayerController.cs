@@ -28,9 +28,15 @@ public class PlayerController : MonoBehaviour
     public float mouseSenesitivity = 2f;
 
     public bool isFirstPerson = true;
-    private bool isGrounded;
+    //private bool isGrounded;
     private Rigidbody rb;
-    
+
+    public float fallingThreshold = -0.1f;
+
+    [Header("Ground Check Setting")]
+    public float groundCheckDistance = 0.3f;
+    public float slopedLimit = 45f;
+    public const int groundCheckPoints = 5;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,8 +47,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleRotation();
-        HandleJump();
         HandleCameraToggle();
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            HandleJump();
+        }
     }
 
     private void FixedUpdate()
@@ -54,7 +64,7 @@ public class PlayerController : MonoBehaviour
         firstPersonCamera.gameObject.SetActive(isFirstPerson);
         thirdPersonCamera.gameObject.SetActive(!isFirstPerson);
     }
-    void HandleRotation()
+    public void HandleRotation()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSenesitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSenesitivity;
@@ -85,7 +95,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void HandleCameraToggle()
+    public void HandleCameraToggle()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -102,14 +112,13 @@ public class PlayerController : MonoBehaviour
     void HandleJump()
     {
         //점프 버튼을 누르고 땅에 있을 때
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if(isGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
         }
     }
 
-    void HandleMovement()
+    public void HandleMovement()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVerical = Input.GetAxis("Vertical");
@@ -140,9 +149,20 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
     }
-    //플레이어가 땅에 닿아 있는지 감지
-    private void OnCollisionStay(Collision collision)
+
+
+    public bool isFalling()
     {
-        isGrounded = true;
+        return rb.velocity.y < fallingThreshold && !isGrounded();
+    }
+
+    public bool isGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, 2.0f);
+    }
+
+    public float GetVerticalVelocity()
+    {
+        return rb.velocity.y;
     }
 }
