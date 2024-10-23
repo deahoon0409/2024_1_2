@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //PlayerState 모든 플레이어 상태의 기본이 되는 추상 클래스
-public abstract class PlayerState : MonoBehaviour
+public abstract class PlayerState
 {
     protected PlayerStateMachine stateMachine;
     protected PlayerController playerController;
+    protected PlayerAnimationManager animationManager;
 
     //생성자 상태 머신과 플레이어 컨트롤러 참조 초기화
     public PlayerState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
         this.playerController = stateMachine.PlayerController;
+        this.animationManager = stateMachine.GetComponent<PlayerAnimationManager>();
     }
 
     public virtual void Enter() { }
@@ -62,10 +64,13 @@ public class ldleState : PlayerState
 }
 public class MovingState : PlayerState
 {
+    private bool isRunning;
     public MovingState(PlayerStateMachine stateMachice) : base(stateMachice) { }
 
     public override void Update()
     {
+        isRunning = Input.GetKey(KeyCode.LeftShift);
+
         CheckTransitions();
     }
     public override void FixedUpdate()

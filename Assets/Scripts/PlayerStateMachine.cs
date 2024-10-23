@@ -31,14 +31,19 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
-    public void TransitionToState(PlayerState newstate)
+    public void TransitionToState(PlayerState newState)
     {
+        if(currentState?.GetType() == newState.GetType())
+        {
+            return;
+        }
+
         currentState?.Exit();
 
-        currentState = newstate;
+        currentState = newState;
 
         currentState.Enter();
 
-        Debug.Log($"상태 전환 되는 스테이트 : {newstate.GetType().Name}");
+        Debug.Log($"상태 전환 되는 스테이트 : {newState.GetType().Name}");
     }
 }
