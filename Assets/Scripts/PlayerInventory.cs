@@ -4,11 +4,42 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    private SurvivalStats survivalStats;
+
     public int crystalCount = 0;
     public int plantCount = 0;
     public int bushCount = 0;
     public int treeCount = 0;
 
+
+    public void Start()
+    {
+        survivalStats = GetComponent<SurvivalStats>();
+    }
+
+    public void UseItem(ItemType itemType)
+    {
+        if(GetItemCount(itemType) <= 0)
+        {
+            return;
+        }
+
+        switch (itemType)
+        {
+            case ItemType.VegetableStew:
+                Removeitme(ItemType.VegetableStew, 1);
+                survivalStats.EatFood(RecipeList.KitchenRecipes[0].hungerRestoreAmount);
+                break;
+            case ItemType.FruiSalad:
+                Removeitme(ItemType.FruiSalad, 1);
+                survivalStats.EatFood(RecipeList.KitchenRecipes[1].hungerRestoreAmount);
+                break;
+            case ItemType.RepairKit:
+                Removeitme(ItemType.RepairKit, 1);
+                survivalStats.EatFood(RecipeList.WorkbenchRecipes[0].repairAmount);
+                break;
+        }
+    }
     public void Additem(ItemType itemType, int amount)
     {
         for(int i = 0; i < amount; i++)

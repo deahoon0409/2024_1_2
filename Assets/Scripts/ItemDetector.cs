@@ -8,6 +8,9 @@ public enum ItemType
     Plant,
     Bush,
     Tree,
+    VegetableStew,
+    FruiSalad,
+    RepairKit
 }
 
 public class ItemDetector : MonoBehaviour
